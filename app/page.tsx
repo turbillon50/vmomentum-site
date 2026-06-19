@@ -535,7 +535,7 @@ function Footer(){
           <div style={{fontSize:12,color:"rgba(221,227,240,0.25)",lineHeight:1.5}}>
             © 2026 All Global Holding LLC. Todos los derechos reservados.
             <span style={{margin:"0 8px",opacity:0.4}}>·</span>
-            Colectivo Mass S.A. de C.V. · RFC CMA0803185G0
+            Colectivo Mass S.A. de C.V. · RFC CMA0803185G0<br/>Av. Paseo de la Reforma 389, Piso 19, Col. Juárez, CDMX, CP 06600
           </div>
           <div style={{display:"flex",gap:20,flexWrap:"wrap"}}>
             {[

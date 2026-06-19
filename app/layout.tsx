@@ -7,11 +7,11 @@ import Script from "next/script";
 export const metadata: Metadata = {
   title: "V Momentum — SaaS Technology Apps Design",
   description: "La fábrica de software más rápida de México. Apps PWA premium para negocios en 7 días.",
-  metadataBase: new URL("https://vmomentums.info"),
+  metadataBase: new URL("https://vmomentum.site"),
   openGraph: {
     title: "V Momentum",
     description: "Apps PWA premium para negocios mexicanos. De idea a producción en 7 días.",
-    url: "https://vmomentums.info",
+    url: "https://vmomentum.site",
     siteName: "V Momentum",
     type: "website",
   },
