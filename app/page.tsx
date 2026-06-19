@@ -290,12 +290,13 @@ function Proceso(){
   );
 }
 
-/* ══ STACK — con color real por categoría ══ */
+
+/* ══ STACK ══ */
 const CATS=[
   {t:"Pagos",col:"#10b981",items:["Stripe","Mercado Pago","OXXO Pay","SPEI / CLABE"]},
   {t:"IA & LLMs",col:"#8b5cf6",items:["Claude (Anthropic)","GPT-4o","Gemini","OpenRouter"]},
   {t:"Comunicación",col:"#f59e0b",items:["WhatsApp API","Twilio SMS","Resend Email","ElevenLabs"]},
-  {t:"Automatización",col:BLU,items:["n8n workflows","Agentes MCP","Crons","Make / Zapier"]},
+  {t:"Automatización",col:"#1a6eff",items:["n8n workflows","Agentes MCP","Crons","Make / Zapier"]},
   {t:"Auth & Users",col:"#ec4899",items:["Clerk","Magic links","OAuth Google","Roles & permisos"]},
   {t:"Infra",col:"#06b6d4",items:["Vercel Edge","Neon Postgres","Hetzner VPS","GitHub CI/CD"]},
   {t:"Video & IA",col:"#f97316",items:["Higgsfield AI","GPT Image 2","Seedance Video","Cloudinary"]},
@@ -303,29 +304,43 @@ const CATS=[
 ];
 function Stack(){
   return(
-    <section id="stack" style={{padding:'120px 28px',position:'relative',background:`linear-gradient(180deg,${BG} 0%,${S2} 50%,${BG} 100%)`,overflow:'hidden'}}>
+    <section id="stack" style={{padding:"120px 28px",position:"relative",overflow:"hidden",
+      background:"linear-gradient(180deg,#07080f 0%,#0a0c18 40%,#07080f 100%)"}}>
+      {/* Degradado de color real */}
+      <div style={{position:"absolute",inset:0,background:"radial-gradient(ellipse 80% 50% at 50% 100%,rgba(26,110,255,0.07) 0%,transparent 100%)",pointerEvents:"none"}}/>
+      <div style={{position:"absolute",top:"20%",right:"-5%",pointerEvents:"none",opacity:0.08}}><Blob color="#06b6d4" size={500}/></div>
+      <div style={{position:"absolute",bottom:"10%",left:"-5%",pointerEvents:"none",opacity:0.06}}><Blob color="#8b5cf6" size={400}/></div>
       <NoiseBg/>
-      <div style={{position:'absolute',top:'40%',right:'-8%',pointerEvents:'none',opacity:0.1}}><Blob color="#06b6d4" size={500}/></div>
-      <div style={{maxWidth:1200,margin:'0 auto',position:'relative'}}>
-        <div style={{textAlign:'center',marginBottom:72}}>
-          <ClipReveal><span style={{display:'inline-block',background:'rgba(26,110,255,0.08)',border:'1px solid rgba(26,110,255,0.22)',borderRadius:100,padding:'4px 16px',fontSize:11,letterSpacing:2.5,textTransform:'uppercase',color:BLU,marginBottom:20}}>Ecosistema</span></ClipReveal>
-          <h2 style={{fontSize:'clamp(30px,4.5vw,58px)',fontWeight:900,letterSpacing:'-0.04em',color:'#fff',marginBottom:16}}><SplitText text="Conectamos con todo" delay={0}/></h2>
-          <ClipReveal><p style={{fontSize:17,color:SLV2,maxWidth:420,margin:'0 auto'}}>Más de 40 servicios y APIs integradas en tu plataforma.</p></ClipReveal>
+      <div style={{maxWidth:1200,margin:"0 auto",position:"relative"}}>
+        <div style={{textAlign:"center",marginBottom:72}}>
+          <ClipReveal>
+            <span style={{display:"inline-block",background:"rgba(26,110,255,0.08)",border:"1px solid rgba(26,110,255,0.22)",borderRadius:100,padding:"4px 16px",fontSize:11,letterSpacing:2.5,textTransform:"uppercase",color:"#1a6eff",marginBottom:20}}>Ecosistema</span>
+          </ClipReveal>
+          <h2 style={{fontSize:"clamp(30px,4.5vw,58px)",fontWeight:900,letterSpacing:"-0.04em",color:"#fff",marginBottom:16}}>
+            <SplitText text="Conectamos con todo" delay={0}/>
+          </h2>
+          <ClipReveal><p style={{fontSize:17,color:"rgba(221,227,240,0.58)",maxWidth:420,margin:"0 auto"}}>Más de 40 servicios y APIs integradas en tu plataforma.</p></ClipReveal>
         </div>
-        <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(210px,1fr))',gap:12}}>
+        <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(210px,1fr))",gap:12}}>
           {CATS.map((cat,i)=>(
-            <motion.div key={i} initial={{opacity:0,y:20,scale:0.96}} whileInView={{opacity:1,y:0,scale:1}} viewport={{once:true,margin:'-20px'}} transition={{duration:0.42,delay:i*0.06,ease:[0.22,1,0.36,1]}}
-              whileHover={{scale:1.04,borderColor:`${cat.col}44`,boxShadow:`0 8px 32px rgba(0,0,0,0.4),0 0 0 1px ${cat.col}18`}}
-              style={{background:S1,border:`1px solid ${BD}`,borderRadius:14,padding:'20px 18px',position:'relative',overflow:'hidden',cursor:'default',transition:'border-color 0.2s,box-shadow 0.2s'}}>
+            <motion.div key={i}
+              initial={{opacity:0,y:20,scale:0.96}} whileInView={{opacity:1,y:0,scale:1}}
+              viewport={{once:true,margin:"-20px"}} transition={{duration:0.42,delay:i*0.06,ease:[0.22,1,0.36,1]}}
+              whileHover={{scale:1.04,y:-4}}
+              style={{background:"#0e1018",border:"1px solid rgba(255,255,255,0.07)",borderRadius:14,padding:"22px 18px",position:"relative",overflow:"hidden",cursor:"default",transition:"border-color 0.25s,box-shadow 0.25s"}}
+              onMouseEnter={e=>{e.currentTarget.style.borderColor=`${cat.col}55`;e.currentTarget.style.boxShadow=`0 12px 40px rgba(0,0,0,0.5),0 0 0 1px ${cat.col}22,inset 0 1px 0 ${cat.col}11`;}}
+              onMouseLeave={e=>{e.currentTarget.style.borderColor="rgba(255,255,255,0.07)";e.currentTarget.style.boxShadow="none";}}>
+              {/* Top accent line */}
+              <div style={{position:"absolute",top:0,left:0,right:0,height:2,background:`linear-gradient(90deg,transparent,${cat.col},transparent)`,opacity:0.6}}/>
               <NoiseBg/>
-              <div style={{position:'relative'}}>
-                <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:14}}>
-                  <div style={{width:8,height:8,borderRadius:'50%',background:cat.col,flexShrink:0}}/>
-                  <div style={{fontSize:10,letterSpacing:2.5,textTransform:'uppercase',color:cat.col,fontWeight:700,opacity:0.85}}>{cat.t}</div>
+              <div style={{position:"relative"}}>
+                <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:16}}>
+                  <div style={{width:8,height:8,borderRadius:"50%",background:cat.col,flexShrink:0,boxShadow:`0 0 8px ${cat.col}`}}/>
+                  <span style={{fontSize:10,letterSpacing:2.5,textTransform:"uppercase",color:cat.col,fontWeight:700}}>{cat.t}</span>
                 </div>
                 {cat.items.map(item=>(
-                  <div key={item} style={{display:'flex',alignItems:'center',gap:9,fontSize:13,color:SLV2,marginBottom:9}}>
-                    <div style={{width:4,height:4,borderRadius:'50%',background:`${cat.col}88`,flexShrink:0}}/>
+                  <div key={item} style={{display:"flex",alignItems:"center",gap:9,fontSize:13,color:"rgba(221,227,240,0.58)",marginBottom:9}}>
+                    <div style={{width:4,height:4,borderRadius:"50%",background:`${cat.col}66`,flexShrink:0}}/>
                     {item}
                   </div>
                 ))}
@@ -338,23 +353,47 @@ function Stack(){
   );
 }
 
-/* ══ CTA ══ */
+/* ══ CTA FINAL ══ */
 function CTAFinal(){
   return(
-    <section id="contacto" style={{padding:'120px 28px',position:'relative',overflow:'hidden'}}>
-      <div style={{position:'absolute',top:'50%',left:'50%',transform:'translate(-50%,-50%)',pointerEvents:'none'}}><Blob color={BLU} size={600} style={{opacity:0.16}}/></div>
-      <div style={{position:'absolute',top:'30%',left:'10%',pointerEvents:'none'}}><Blob color="#8b5cf6" size={300} style={{opacity:0.1}}/></div>
+    <section id="contacto" style={{padding:"120px 28px",position:"relative",overflow:"hidden",
+      background:"linear-gradient(180deg,#07080f 0%,#080b1a 50%,#07080f 100%)"}}>
+      <div style={{position:"absolute",inset:0,background:"radial-gradient(ellipse 60% 70% at 50% 50%,rgba(26,110,255,0.1) 0%,transparent 70%)",pointerEvents:"none"}}/>
+      <div style={{position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%)",pointerEvents:"none"}}><Blob color="#1a6eff" size={700} style={{opacity:0.12}}/></div>
+      <div style={{position:"absolute",top:"20%",left:"5%",pointerEvents:"none"}}><Blob color="#8b5cf6" size={350} style={{opacity:0.08}}/></div>
+      <div style={{position:"absolute",bottom:"20%",right:"5%",pointerEvents:"none"}}><Blob color="#06b6d4" size={300} style={{opacity:0.07}}/></div>
+      <NoiseBg/>
       <ClipReveal>
-        <div style={{maxWidth:780,margin:'0 auto',position:'relative'}}>
+        <div style={{maxWidth:820,margin:"0 auto",position:"relative"}}>
           <GlassCard>
-            <div style={{textAlign:'center',padding:'16px 8px'}}>
-              <h2 style={{fontSize:'clamp(28px,4vw,56px)',fontWeight:900,letterSpacing:'-0.04em',color:'#fff',marginBottom:16,lineHeight:1.1}}>
+            <div style={{textAlign:"center",padding:"20px 8px"}}>
+              <motion.div initial={{opacity:0,scale:0.9}} whileInView={{opacity:1,scale:1}} viewport={{once:true}} transition={{duration:0.6}}>
+                <div style={{display:"inline-flex",alignItems:"center",gap:8,background:"rgba(26,110,255,0.09)",border:"1px solid rgba(26,110,255,0.28)",borderRadius:100,padding:"5px 16px",marginBottom:24}}>
+                  <motion.div animate={{scale:[1,1.5,1]}} transition={{repeat:Infinity,duration:2}} style={{width:5,height:5,borderRadius:"50%",background:"#1a6eff"}}/>
+                  <span style={{fontSize:11,letterSpacing:2,textTransform:"uppercase",color:"#1a6eff",fontWeight:700}}>Disponible ahora · CDMX</span>
+                </div>
+              </motion.div>
+              <h2 style={{fontSize:"clamp(28px,4vw,56px)",fontWeight:900,letterSpacing:"-0.04em",color:"#fff",marginBottom:16,lineHeight:1.08}}>
                 <GradText>¿Listo para ver tu app?</GradText>
               </h2>
-              <p style={{fontSize:17,color:SLV2,maxWidth:420,margin:'0 auto 44px',lineHeight:1.75}}>En 72 horas tienes una demo funcional de tu negocio. Sin costo, sin compromiso.</p>
-              <div style={{display:'flex',gap:14,justifyContent:'center',flexWrap:'wrap'}}>
-                <Magnetic><motion.a href="https://wa.me/529984292748?text=Hola,%20quiero%20ver%20mi%20demo%20gratis" target="_blank" rel="noopener" whileHover={{boxShadow:`0 0 48px rgba(26,110,255,0.6)`}} whileTap={{scale:0.97}} style={{display:'block',background:BLU,color:'#fff',fontSize:15,fontWeight:700,padding:'16px 38px',borderRadius:12,textDecoration:'none',boxShadow:`0 0 22px rgba(26,110,255,0.28)`}}>Quiero mi demo gratis</motion.a></Magnetic>
-                <Magnetic><motion.a href="https://wa.me/529984292748" target="_blank" rel="noopener" whileHover={{background:'rgba(255,255,255,0.05)'}} whileTap={{scale:0.97}} style={{display:'block',border:'1px solid rgba(221,227,240,0.18)',color:SLV,fontSize:15,padding:'16px 38px',borderRadius:12,textDecoration:'none',transition:'background 0.2s'}}>WhatsApp directo</motion.a></Magnetic>
+              <p style={{fontSize:17,color:"rgba(221,227,240,0.58)",maxWidth:440,margin:"0 auto 44px",lineHeight:1.75}}>
+                En 72 horas tienes una demo funcional de tu negocio. Sin costo, sin compromiso.
+              </p>
+              <div style={{display:"flex",gap:14,justifyContent:"center",flexWrap:"wrap"}}>
+                <Magnetic>
+                  <motion.a href="https://wa.me/529984292748?text=Hola,%20quiero%20ver%20mi%20demo%20gratis" target="_blank" rel="noopener"
+                    whileHover={{boxShadow:"0 0 48px rgba(26,110,255,0.65)",scale:1.03}} whileTap={{scale:0.97}}
+                    style={{display:"block",background:"#1a6eff",color:"#fff",fontSize:15,fontWeight:700,padding:"16px 38px",borderRadius:12,textDecoration:"none",boxShadow:"0 0 24px rgba(26,110,255,0.32)"}}>
+                    Quiero mi demo gratis →
+                  </motion.a>
+                </Magnetic>
+                <Magnetic>
+                  <motion.a href="https://wa.me/529984292748" target="_blank" rel="noopener"
+                    whileHover={{background:"rgba(255,255,255,0.06)",scale:1.03}} whileTap={{scale:0.97}}
+                    style={{display:"block",border:"1px solid rgba(221,227,240,0.18)",color:"#dde3f0",fontSize:15,padding:"16px 38px",borderRadius:12,textDecoration:"none",backdropFilter:"blur(12px)",transition:"background 0.2s"}}>
+                    WhatsApp directo
+                  </motion.a>
+                </Magnetic>
               </div>
             </div>
           </GlassCard>
@@ -364,20 +403,155 @@ function CTAFinal(){
   );
 }
 
-/* ══ FOOTER ══ */
+/* ══ FOOTER ESTILO NEON.TECH ══ */
+const FOOTER_COLS = [
+  {
+    title: "Servicios",
+    links: [
+      {label:"Apps & PWAs",href:"#servicios"},
+      {label:"IA & Brains",href:"#servicios"},
+      {label:"Automatizaciones",href:"#servicios"},
+      {label:"Bots & WhatsApp",href:"#servicios"},
+      {label:"Integraciones",href:"#servicios"},
+      {label:"Landings & Video IA",href:"#servicios"},
+    ]
+  },
+  {
+    title: "Empresa",
+    links: [
+      {label:"Nosotros",href:"/nosotros"},
+      {label:"Blog",href:"/blog"},
+      {label:"Casos de éxito",href:"/casos"},
+      {label:"Catálogo de efectos",href:"/efectos"},
+      {label:"Contacto",href:"#contacto"},
+      {label:"Trabaja con nosotros",href:"mailto:luisdelator@vmomentums.info"},
+    ]
+  },
+  {
+    title: "Tecnología",
+    links: [
+      {label:"Stack técnico",href:"#stack"},
+      {label:"Proceso",href:"#proceso"},
+      {label:"VForge Platform",href:"https://vforge.site"},
+      {label:"V Living",href:"#"},
+      {label:"All Global Holding",href:"#"},
+    ]
+  },
+  {
+    title: "Legal",
+    links: [
+      {label:"Aviso de Privacidad",href:"/privacidad"},
+      {label:"Términos y Condiciones",href:"/terminos"},
+      {label:"Política de Cookies",href:"/cookies"},
+      {label:"GDPR / LFPDPPP",href:"/gdpr"},
+      {label:"Seguridad",href:"/seguridad"},
+    ]
+  },
+];
+
+const SOCIAL = [
+  {name:"X / Twitter",href:"https://twitter.com/LuisVmomentums",icon:<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>},
+  {name:"LinkedIn",href:"https://linkedin.com/in/luis-humberto-de-la-torre-herrera-3499b9414",icon:<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>},
+  {name:"GitHub",href:"https://github.com/turbillon50",icon:<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>},
+  {name:"WhatsApp",href:"https://wa.me/529984292748",icon:<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>},
+];
+
 function Footer(){
+  const [status, setStatus] = useState<"online"|"checking">("checking");
+  useEffect(()=>{ setTimeout(()=>setStatus("online"),1200); },[]);
+
   return(
-    <footer style={{borderTop:'1px solid rgba(255,255,255,0.05)',padding:'32px 28px',background:S1,position:'relative'}}>
+    <footer style={{borderTop:"1px solid rgba(255,255,255,0.06)",background:"#07080f",position:"relative",overflow:"hidden"}}>
       <NoiseBg/>
-      <div style={{maxWidth:1200,margin:'0 auto',display:'flex',justifyContent:'space-between',alignItems:'center',flexWrap:'wrap',gap:16,position:'relative'}}>
-        <div style={{fontSize:16,fontWeight:900,letterSpacing:-1,color:'#fff'}}>V<span style={{color:BLU}}>·</span>Momentum</div>
-        <div style={{display:'flex',gap:24,flexWrap:'wrap'}}>
-          {["Privacidad","Términos","Blog",{label:"Efectos",href:"/efectos"},"Contacto"].map((l,i)=>{
-            const label=typeof l==='string'?l:l.label;const href=typeof l==='string'?'#':l.href;
-            return <a key={i} href={href} style={{fontSize:12,color:SLV3,textDecoration:'none',transition:'color 0.2s'}} onMouseEnter={e=>e.currentTarget.style.color=SLV2} onMouseLeave={e=>e.currentTarget.style.color=SLV3}>{label}</a>;
-          })}
+      {/* Glow sutil arriba */}
+      <div style={{position:"absolute",top:0,left:"50%",transform:"translateX(-50%)",width:800,height:2,background:"linear-gradient(90deg,transparent,rgba(26,110,255,0.4),transparent)"}}/>
+
+      {/* Cuerpo principal */}
+      <div style={{maxWidth:1200,margin:"0 auto",padding:"64px 28px 48px",position:"relative"}}>
+        <div style={{display:"grid",gridTemplateColumns:"260px repeat(4,1fr)",gap:48,alignItems:"start"}}>
+
+          {/* Logo + tagline + social */}
+          <div style={{display:"flex",flexDirection:"column",gap:20}}>
+            <div>
+              <div style={{fontSize:22,fontWeight:900,letterSpacing:-1,color:"#fff",marginBottom:6}}>
+                V<span style={{color:"#1a6eff"}}>·</span>Momentum
+              </div>
+              <div style={{fontSize:12,color:"rgba(221,227,240,0.35)",letterSpacing:0.3,lineHeight:1.5}}>
+                Agencia de software premium.<br/>CDMX · México.
+              </div>
+            </div>
+
+            {/* Status indicator */}
+            <div style={{display:"flex",alignItems:"center",gap:8}}>
+              <motion.div
+                animate={{opacity:[1,0.4,1]}}
+                transition={{repeat:Infinity,duration:2,ease:"easeInOut"}}
+                style={{width:7,height:7,borderRadius:"50%",background:status==="online"?"#10b981":"#f59e0b",boxShadow:`0 0 8px ${status==="online"?"#10b981":"#f59e0b"}`}}
+              />
+              <span style={{fontSize:12,color:"rgba(221,227,240,0.55)"}}>
+                {status==="online"?"Todos los sistemas operativos":"Verificando estado..."}
+              </span>
+            </div>
+
+            {/* Social icons */}
+            <div style={{display:"flex",gap:12}}>
+              {SOCIAL.map(s=>(
+                <motion.a key={s.name} href={s.href} target="_blank" rel="noopener"
+                  whileHover={{scale:1.15,color:"#fff"}} whileTap={{scale:0.95}}
+                  title={s.name}
+                  style={{display:"flex",alignItems:"center",justifyContent:"center",width:34,height:34,borderRadius:8,background:"rgba(255,255,255,0.05)",border:"1px solid rgba(255,255,255,0.08)",color:"rgba(221,227,240,0.45)",textDecoration:"none",transition:"color 0.2s,background 0.2s"}}
+                  onMouseEnter={e=>{e.currentTarget.style.background="rgba(26,110,255,0.12)";e.currentTarget.style.borderColor="rgba(26,110,255,0.3)";}}
+                  onMouseLeave={e=>{e.currentTarget.style.background="rgba(255,255,255,0.05)";e.currentTarget.style.borderColor="rgba(255,255,255,0.08)";}}>
+                  {s.icon}
+                </motion.a>
+              ))}
+            </div>
+          </div>
+
+          {/* Columnas de links */}
+          {FOOTER_COLS.map((col,ci)=>(
+            <div key={ci} style={{display:"flex",flexDirection:"column",gap:20}}>
+              <span style={{fontSize:10,letterSpacing:3,textTransform:"uppercase",color:"#fff",fontWeight:700}}>{col.title}</span>
+              <ul style={{listStyle:"none",padding:0,margin:0,display:"flex",flexDirection:"column",gap:14}}>
+                {col.links.map((link,li)=>(
+                  <li key={li}>
+                    <a href={link.href}
+                      style={{fontSize:14,color:"rgba(221,227,240,0.45)",textDecoration:"none",letterSpacing:"-0.01em",transition:"color 0.2s",display:"block"}}
+                      onMouseEnter={e=>e.currentTarget.style.color="#fff"}
+                      onMouseLeave={e=>e.currentTarget.style.color="rgba(221,227,240,0.45)"}>
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
-        <div style={{fontSize:11,color:'rgba(221,227,240,0.18)'}}>© 2026 All Global Holding LLC · CDMX</div>
+      </div>
+
+      {/* Bottom bar */}
+      <div style={{borderTop:"1px solid rgba(255,255,255,0.05)",padding:"20px 28px"}}>
+        <div style={{maxWidth:1200,margin:"0 auto",display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:12}}>
+          <div style={{fontSize:12,color:"rgba(221,227,240,0.25)",lineHeight:1.5}}>
+            © 2026 All Global Holding LLC. Todos los derechos reservados.
+            <span style={{margin:"0 8px",opacity:0.4}}>·</span>
+            Colectivo Mass S.A. de C.V. · RFC CMA0803185G0
+          </div>
+          <div style={{display:"flex",gap:20,flexWrap:"wrap"}}>
+            {[
+              {l:"Aviso de Privacidad",h:"/privacidad"},
+              {l:"Términos y Condiciones",h:"/terminos"},
+              {l:"Política de Cookies",h:"/cookies"},
+              {l:"LFPDPPP",h:"/gdpr"},
+            ].map(({l,h})=>(
+              <a key={l} href={h} style={{fontSize:12,color:"rgba(221,227,240,0.28)",textDecoration:"none",transition:"color 0.2s"}}
+                onMouseEnter={e=>e.currentTarget.style.color="rgba(221,227,240,0.7)"}
+                onMouseLeave={e=>e.currentTarget.style.color="rgba(221,227,240,0.28)"}>
+                {l}
+              </a>
+            ))}
+          </div>
+        </div>
       </div>
     </footer>
   );
@@ -386,9 +560,12 @@ function Footer(){
 /* ══ PAGE ══ */
 export default function Home(){
   return(
-    <div style={{background:BG,minHeight:'100vh',color:SLV,fontFamily:"var(--font-geist-sans,'Geist',system-ui,sans-serif)"}}>
+    <div style={{background:"#07080f",minHeight:"100vh",color:"#dde3f0",fontFamily:"var(--font-geist-sans,'Geist',system-ui,sans-serif)"}}>
       <style>{`
-        @media(max-width:768px){.nav-links{display:none!important}.nav-ham{display:flex!important}}
+        @media(max-width:768px){
+          .nav-links{display:none!important}
+          .nav-ham{display:flex!important}
+        }
         *{cursor:none!important}
       `}</style>
       <GlobalCursor/>
