@@ -214,39 +214,91 @@ function LogosSection(){
   );
 }
 
-/* ══ SERVICIOS ══ */
+
+/* ══ SERVICIOS AIRBNB STYLE ══ */
 const SVCS=[
-  {c:BLU,n:"Apps & PWAs",d:"Aplicaciones web progresivas que se instalan como app nativa. Dashboards, portales, ERPs con datos reales.",tags:["Next.js 16","PWA","Móvil-first"],icon:<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>},
-  {c:"#8b5cf6",n:"IA & Brains",d:"Agentes con memoria, chatbots, OCR, análisis de documentos. LLMs propios integrados a tu operación.",tags:["Claude","GPT-4o","MCP","RAG"],icon:<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>},
-  {c:"#10b981",n:"Automatizaciones",d:"Flujos que hacen el trabajo repetitivo. Notificaciones, reportes, sync entre sistemas, crons automáticos.",tags:["n8n","Webhooks","Crons"],icon:<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>},
-  {c:"#f59e0b",n:"Bots & WhatsApp",d:"Bots para WhatsApp, Instagram y web. Atención 24/7, calificación de leads, cobros automatizados.",tags:["WhatsApp API","Twilio","IA nativa"],icon:<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>},
-  {c:"#ec4899",n:"Integraciones",d:"Pagos, facturación SAT, CRM, ERP, ecommerce, delivery y logística. Todo conectado en un solo sistema.",tags:["Stripe","MercadoPago","SAT/CFDI"],icon:<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>},
-  {c:"#06b6d4",n:"Landings & Video IA",d:"Sitios de venta con video generado por IA. Campañas, redes sociales, contenido que convierte.",tags:["Higgsfield","Video IA","SEO"],icon:<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>},
+  {c:"#1a6eff",img:"/services/apps.jpg",n:"Apps & PWAs",short:"Instalable como app nativa",d:"Dashboards, portales, ERPs y marketplaces con datos reales. Móvil-first desde el primer día.",tags:["Next.js 16","PWA","Móvil-first"]},
+  {c:"#8b5cf6",img:"/services/ia.jpg",n:"IA & Brains",short:"Inteligencia que trabaja por ti",d:"Agentes con memoria, chatbots, OCR, análisis de documentos. LLMs propios integrados.",tags:["Claude","GPT-4o","MCP","RAG"]},
+  {c:"#10b981",img:"/services/auto.jpg",n:"Automatizaciones",short:"Tu operación en piloto automático",d:"Flujos que eliminan el trabajo repetitivo. Notificaciones, reportes y sync entre sistemas.",tags:["n8n","Webhooks","Crons"]},
+  {c:"#f59e0b",img:"/services/bots.jpg",n:"Bots & WhatsApp",short:"Ventas y soporte 24/7",d:"Bots para WhatsApp, Instagram y web. Calificación de leads y cobros automatizados.",tags:["WhatsApp API","Twilio","IA nativa"]},
+  {c:"#ec4899",img:"/services/integ.jpg",n:"Integraciones",short:"Todo conectado en un sistema",d:"Pagos, facturación SAT, CRM, ERP, ecommerce, delivery y logística unificados.",tags:["Stripe","MercadoPago","SAT/CFDI"]},
+  {c:"#06b6d4",img:"/services/video.jpg",n:"Landings & Video IA",short:"Presencia digital que convierte",d:"Sitios de venta con video generado por IA. Contenido para campañas y redes sociales.",tags:["Higgsfield","Video IA","SEO"]},
 ];
+
+function ServiceCard({s,i}:{s:typeof SVCS[0];i:number}){
+  const [hov,setHov]=useState(false);
+  return(
+    <motion.div
+      initial={{opacity:0,y:32}} whileInView={{opacity:1,y:0}}
+      viewport={{once:true,margin:"-30px"}} transition={{duration:0.55,delay:i*0.08,ease:[0.22,1,0.36,1]}}
+      onMouseEnter={()=>setHov(true)} onMouseLeave={()=>setHov(false)}
+      style={{position:"relative",borderRadius:20,overflow:"hidden",cursor:"default",
+        aspectRatio:"4/3",background:"#0e1018"}}>
+
+      {/* Imagen fotorrealista de fondo */}
+      <motion.img
+        src={s.img} alt={s.n}
+        animate={{scale:hov?1.08:1}}
+        transition={{duration:0.55,ease:[0.22,1,0.36,1]}}
+        style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",display:"block"}}
+      />
+
+      {/* Gradiente siempre visible abajo */}
+      <div style={{position:"absolute",inset:0,background:"linear-gradient(0deg,rgba(0,0,0,0.88) 0%,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0.1) 100%)"}}/>
+
+      {/* Overlay hover con más oscuridad */}
+      <motion.div animate={{opacity:hov?1:0}} transition={{duration:0.3}}
+        style={{position:"absolute",inset:0,background:`linear-gradient(135deg,${s.c}33,rgba(0,0,0,0.7))`}}/>
+
+      {/* Contenido */}
+      <div style={{position:"absolute",inset:0,padding:"24px",display:"flex",flexDirection:"column",justifyContent:"flex-end"}}>
+
+        {/* Badge color siempre visible */}
+        <div style={{marginBottom:10}}>
+          <span style={{display:"inline-block",background:`${s.c}22`,border:`1px solid ${s.c}55`,borderRadius:100,padding:"3px 12px",fontSize:11,color:s.c,fontWeight:700,backdropFilter:"blur(8px)",letterSpacing:1}}>{s.short}</span>
+        </div>
+
+        {/* Título siempre visible */}
+        <h3 style={{fontSize:22,fontWeight:900,color:"#fff",marginBottom:6,letterSpacing:"-0.03em",lineHeight:1.1,textShadow:"0 2px 12px rgba(0,0,0,0.8)"}}>
+          <Scramble text={s.n} color="#fff"/>
+        </h3>
+
+        {/* Descripción — aparece en hover */}
+        <motion.div animate={{opacity:hov?1:0,height:hov?"auto":0,marginBottom:hov?12:0}} transition={{duration:0.3}}>
+          <p style={{fontSize:13,color:"rgba(255,255,255,0.8)",lineHeight:1.6,marginBottom:10}}>{s.d}</p>
+          <div style={{display:"flex",flexWrap:"wrap",gap:6}}>
+            {s.tags.map(t=>(
+              <span key={t} style={{fontSize:11,padding:"3px 10px",borderRadius:100,background:"rgba(255,255,255,0.12)",border:"1px solid rgba(255,255,255,0.2)",color:"#fff",backdropFilter:"blur(8px)"}}>{t}</span>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* CTA hover */}
+        <motion.div animate={{opacity:hov?1:0,y:hov?0:10}} transition={{duration:0.3,delay:0.05}}>
+          <a href="#contacto" style={{display:"inline-flex",alignItems:"center",gap:6,background:s.c,color:"#fff",fontSize:12,fontWeight:700,padding:"8px 16px",borderRadius:8,textDecoration:"none"}}>
+            Ver demo →
+          </a>
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+}
+
 function Servicios(){
   return(
-    <section id="servicios" style={{padding:'120px 28px',maxWidth:1200,margin:'0 auto',position:'relative'}}>
-      <div style={{position:'absolute',top:'30%',right:'-10%',pointerEvents:'none',opacity:0.15}}><Blob color="#8b5cf6" size={500}/></div>
-      <div style={{textAlign:'center',marginBottom:72}}>
-        <ClipReveal><span style={{display:'inline-block',background:'rgba(26,110,255,0.08)',border:'1px solid rgba(26,110,255,0.22)',borderRadius:100,padding:'4px 16px',fontSize:11,letterSpacing:2.5,textTransform:'uppercase',color:BLU,marginBottom:20}}>Qué hacemos</span></ClipReveal>
-        <h2 style={{fontSize:'clamp(30px,4.5vw,58px)',fontWeight:900,letterSpacing:'-0.04em',color:'#fff',marginBottom:16,lineHeight:1.1}}>
+    <section id="servicios" style={{padding:"120px 28px",maxWidth:1200,margin:"0 auto",position:"relative"}}>
+      <div style={{position:"absolute",top:"30%",right:"-10%",pointerEvents:"none",opacity:0.12}}><Blob color="#8b5cf6" size={500}/></div>
+      <div style={{textAlign:"center",marginBottom:72}}>
+        <ClipReveal><span style={{display:"inline-block",background:"rgba(26,110,255,0.08)",border:"1px solid rgba(26,110,255,0.22)",borderRadius:100,padding:"4px 16px",fontSize:11,letterSpacing:2.5,textTransform:"uppercase",color:BLU,marginBottom:20}}>Qué hacemos</span></ClipReveal>
+        <h2 style={{fontSize:"clamp(30px,4.5vw,58px)",fontWeight:900,letterSpacing:"-0.04em",color:"#fff",marginBottom:16,lineHeight:1.1}}>
           <SplitText text="Todo lo que necesita" delay={0}/><br/><GradText><SplitText text="tu negocio digital" delay={0.2}/></GradText>
         </h2>
-        <ClipReveal delay={0.1}><p style={{fontSize:17,color:SLV2,maxWidth:460,margin:'0 auto'}}>Desde la app hasta la IA. Integraciones reales, no promesas.</p></ClipReveal>
+        <ClipReveal delay={0.1}><p style={{fontSize:17,color:SLV2,maxWidth:460,margin:"0 auto"}}>Desde la app hasta la IA. Imágenes generadas con IA. Integraciones reales.</p></ClipReveal>
       </div>
-      <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(310px,1fr))',gap:14}}>
-        {SVCS.map((s,i)=>(
-          <motion.div key={i} initial={{opacity:0,y:24,scale:0.97}} whileInView={{opacity:1,y:0,scale:1}} viewport={{once:true,margin:'-30px'}} transition={{duration:0.5,delay:i*0.07,ease:[0.22,1,0.36,1]}} style={{height:'100%'}}>
-            <TiltCard color={s.c}>
-              <div style={{width:42,height:42,borderRadius:10,background:`${s.c}16`,color:s.c,display:'flex',alignItems:'center',justifyContent:'center',marginBottom:16}}>{s.icon}</div>
-              <h3 style={{fontSize:16,fontWeight:700,color:'#fff',marginBottom:8}}><Scramble text={s.n} color="#fff"/></h3>
-              <p style={{fontSize:13,color:SLV2,lineHeight:1.68,marginBottom:16}}>{s.d}</p>
-              <div style={{display:'flex',flexWrap:'wrap',gap:6}}>
-                {s.tags.map(t=><span key={t} style={{fontSize:11,padding:'3px 10px',borderRadius:100,background:`${s.c}10`,border:`1px solid ${s.c}28`,color:`${s.c}dd`}}>{t}</span>)}
-              </div>
-            </TiltCard>
-          </motion.div>
-        ))}
+
+      {/* Grid Airbnb 3x2 */}
+      <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gridTemplateRows:"repeat(2,300px)",gap:16}}>
+        {SVCS.map((s,i)=><ServiceCard key={i} s={s} i={i}/>)}
       </div>
     </section>
   );
