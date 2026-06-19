@@ -102,9 +102,9 @@ function Marquee({items,reverse=false,speed=28}:{items:typeof LOGO_ITEMS;reverse
         onMouseEnter={e=>(e.currentTarget.style.animationPlayState='paused')}
         onMouseLeave={e=>(e.currentTarget.style.animationPlayState='running')}>
         {[...items,...items].map((logo,i)=>(
-          <div key={i} style={{flexShrink:0,display:'flex',alignItems:'center',gap:10,opacity:0.55,transition:'opacity 0.25s'}}
-            onMouseEnter={e=>(e.currentTarget.style.opacity='1')} onMouseLeave={e=>(e.currentTarget.style.opacity='0.55')}>
-            <img src={logo.src} alt={logo.name} style={{height:24,width:'auto',filter:'brightness(0) invert(1)',objectFit:'contain'}} onError={e=>(e.currentTarget.style.display='none')}/>
+          <div key={i} style={{flexShrink:0,display:'flex',alignItems:'center',gap:10,opacity:0.7,transition:'opacity 0.25s'}}
+            onMouseEnter={e=>(e.currentTarget.style.opacity='1')} onMouseLeave={e=>(e.currentTarget.style.opacity='0.7')}>
+            <img src={logo.src} alt={logo.name} style={{height:24,width:'auto',filter:'brightness(0) invert(1) opacity(0.7)',objectFit:'contain'}} onError={e=>(e.currentTarget.style.display='none')}/>
             <span style={{fontSize:13,fontWeight:700,color:SLV,whiteSpace:'nowrap'}}>{logo.name}</span>
           </div>
         ))}
